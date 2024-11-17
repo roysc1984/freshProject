@@ -5,9 +5,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
+    "lint": "eslint ./src",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc --noEmitOnError --skipLibCheck"
   },
   "dependencies": {
     "react": "18.3.1",
