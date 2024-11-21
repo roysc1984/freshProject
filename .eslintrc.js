@@ -49,6 +49,8 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
+    'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/forbid-prop-types': 1,
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
