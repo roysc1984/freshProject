@@ -61,6 +61,7 @@ const App = () => {
               <Stack.Group
                 screenOptions={{
                   presentation: 'transparentModal',
+                  animation: 'fade',
                 }}
               >
                 <Stack.Screen
