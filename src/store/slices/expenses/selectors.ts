@@ -1,4 +1,3 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
 import { ExpensesAdapter } from './reducer';
 
@@ -31,10 +30,8 @@ export const selectFilterExpenses = (state: RootState) => {
   return expenses;
 };
 
-export const selectExpensesTotalItems = createSelector(
-  selectExpenses,
-  (expenses) => expenses.length,
-);
+export const selectExpensesTotalItems = (state: RootState) =>
+  selectExpenses(state).length;
 
 export const selectExpensesTotalAmount = (state: RootState) => {
   const expenses = selectFilterExpenses(state);
