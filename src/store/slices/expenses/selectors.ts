@@ -8,37 +8,36 @@ export const selectExpenses = (state: RootState) =>
 export const selectExpensesFilterData = (state: RootState) =>
   state.expenses.filterExpenseData;
 
-export const selectFilterExpenses = createSelector(
-  selectExpenses,
-  selectExpensesFilterData,
-  (expenses, filterExpenseData) => {
-    if (filterExpenseData) {
-      const matchedFilter = expenses.filter(
-        (expense) =>
-          (filterExpenseData?.amount
-            ? expense.amount === filterExpenseData.amount
-            : true) &&
-          (filterExpenseData?.title
-            ? expense.title === filterExpenseData.title
-            : true) &&
-          (filterExpenseData?.date
-            ? expense.date === filterExpenseData.date
-            : true),
-      );
+export const selectFilterExpenses = (state: RootState) => {
+  const expenses = selectExpenses(state);
+  const filterExpenseData = selectExpensesFilterData(state);
 
-      return matchedFilter;
-    }
-    return expenses;
-  },
-);
+  if (filterExpenseData) {
+    const matchedFilter = expenses.filter(
+      (expense) =>
+        (filterExpenseData?.amount
+          ? expense.amount === filterExpenseData.amount
+          : true) &&
+        (filterExpenseData?.title
+          ? expense.title === filterExpenseData.title
+          : true) &&
+        (filterExpenseData?.date
+          ? expense.date === filterExpenseData.date
+          : true),
+    );
+
+    return matchedFilter;
+  }
+  return expenses;
+};
 
 export const selectExpensesTotalItems = createSelector(
   selectExpenses,
   (expenses) => expenses.length,
 );
 
-export const selectExpensesTotalAmount = createSelector(
-  selectFilterExpenses,
-  (expenses) =>
-    expenses.reduce((total, expense) => total + (expense?.amount ?? 0), 0),
-);
+export const selectExpensesTotalAmount = (state: RootState) => {
+  const expenses = selectFilterExpenses(state);
+
+  return expenses.reduce((total, expense) => total + (expense?.amount ?? 0), 0);
+};
