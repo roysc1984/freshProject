@@ -31,7 +31,7 @@ export const selectFilterExpenses = (state: RootState) => {
 };
 
 export const selectExpensesTotalItems = (state: RootState) =>
-  selectExpenses(state).length;
+  ExpensesAdapter.getSelectors().selectTotal(state.expenses);
 
 export const selectExpensesTotalAmount = (state: RootState) => {
   const expenses = selectFilterExpenses(state);
