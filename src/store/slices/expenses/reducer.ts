@@ -12,7 +12,6 @@ import {
 } from './payloads';
 
 export interface SliceStateExtra {
-  // expenses: Expense[];
   filterExpenseData: FilterExpenseData | undefined;
 }
 
@@ -22,7 +21,6 @@ export type SliceState = {
 } & SliceStateExtra;
 
 const initialState: SliceStateExtra = {
-  // expenses: [],
   filterExpenseData: undefined,
 };
 
