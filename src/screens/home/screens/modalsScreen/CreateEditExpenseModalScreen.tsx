@@ -103,6 +103,7 @@ const CreateEditExpenseModalScreen = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
+      keyboardVerticalOffset={20}
     >
       {renderTopHeader()}
       <View style={styles.content}>

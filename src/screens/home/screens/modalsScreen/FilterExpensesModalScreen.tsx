@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import {
   Animated,
   KeyboardAvoidingView,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -26,8 +25,11 @@ import {
   GestureEvent,
   PanGestureHandler,
   PanGestureHandlerEventPayload,
+  ScrollView,
   State,
 } from 'react-native-gesture-handler';
+import useKeyboardHeight from 'common/useKeyboardHeight';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   convertDate,
   convertMount,
@@ -42,6 +44,8 @@ const TITLE = 'Filters';
 const CLEAN_BUTTON = 'clean';
 
 const FilterExpensesModalScreen = () => {
+  const { height: keyboardHeight } = useKeyboardHeight();
+  const { bottom } = useSafeAreaInsets();
   const { height } = useWindowDimensions();
   const dialogHeight = useRef(new Animated.Value(0)).current;
   const { current } = useCardAnimation();
@@ -126,10 +130,7 @@ const FilterExpensesModalScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
+    <KeyboardAvoidingView style={styles.container}>
       <Pressable
         style={[StyleSheet.absoluteFill, styles.backDrop]}
         onPress={close}
@@ -172,7 +173,14 @@ const FilterExpensesModalScreen = () => {
               },
             ]}
           >
-            <View style={[styles.viewContainer, { height }]}>
+            <ScrollView
+              style={[
+                styles.viewContainer,
+                { height: height - keyboardHeight - bottom - 80 },
+              ]}
+              enabled={keyboardHeight > 0}
+              showsVerticalScrollIndicator={false}
+            >
               {renderHeader()}
               <View style={[styles.content, { height: height * 0.55 }]}>
                 <ExpenseInputs
@@ -186,7 +194,7 @@ const FilterExpensesModalScreen = () => {
                   text={BUTTON_TEXT}
                 />
               </View>
-            </View>
+            </ScrollView>
           </Animated.View>
         </PanGestureHandler>
       </Animated.View>
